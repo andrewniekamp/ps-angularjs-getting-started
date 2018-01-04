@@ -21,6 +21,7 @@
             .then(onUserComplete, onError);
         }
 
+        $scope.repoSortOrder = "-stargazers_count";
         $scope.username = "Some User";
     };
 
