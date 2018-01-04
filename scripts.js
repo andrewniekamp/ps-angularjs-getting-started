@@ -2,6 +2,7 @@
     
     const app = angular.module("githubViewer", []);
 
+    // Will ultimately not want to use global scope
     const MainController = function($scope, $http) {
         const onUserComplete = (res) => {
             $scope.user = res.data;
@@ -11,6 +12,8 @@
         }
         $http.get("https://api.github.com/users/andrewniekamp")
         .then(onUserComplete, onError);
+
+        $scope.username = "Some User";
     };
 
     app.controller("MainController", MainController); // Not typical
