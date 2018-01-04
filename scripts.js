@@ -6,9 +6,14 @@
     const MainController = function($scope, $http) {
         const onUserComplete = (res) => {
             $scope.user = res.data;
+            $http.get($scope.user.repos_url)
+            .then(onRepos, onError);
+        }
+        const onRepos = (res) => {
+            $scope.repos = res.data;
         }
         const onError = (reason) => {
-            $scope.error = "Could not fetch the user";
+            $scope.error = "Could not fetch the data"; // Usually more specific
         }
 
         $scope.search = (username) => {
