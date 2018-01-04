@@ -9,13 +9,15 @@
     <title>Document</title>
 </head>
 <body ng-controller="MainController">
-    {{username}}
-    <form name="searchUser">
-        <input type="search" placeholder="Username to find" ng-model="username" />
-        <input type="submit" value="Search" />
+    <p>{{username}}</p>
+    <form name="searchUser" ng-submit="search(username)">
+        <input type="search" required placeholder="Username to find" ng-model="username" />
+        <input type="submit" value="Search"/>
+        <!-- Could also pass an argument into the ng-click easily -->
+        <!-- <input type="submit" value="Search" ng-click="search(username)" /> -->
     </form>
 
     <p>{{user.name}}</p>
-    <img ng-src="{{person.imageSrc}}" />
+    <img ng-src="{{user.avatar_url}}" />
 </body>
 </html>

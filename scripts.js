@@ -10,8 +10,11 @@
         const onError = (reason) => {
             $scope.error = "Could not fetch the user";
         }
-        $http.get("https://api.github.com/users/andrewniekamp")
-        .then(onUserComplete, onError);
+
+        $scope.search = (username) => {
+            $http.get("https://api.github.com/users/andrewniekamp")
+            .then(onUserComplete, onError);
+        }
 
         $scope.username = "Some User";
     };
