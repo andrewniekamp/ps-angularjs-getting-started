@@ -1,11 +1,4 @@
-var MainController = function($scope) {
-    
-    var person = {
-        firstName: "Scott",
-        lastName: "Allen",
-        imageSrc: "blah"
-    };
-    
-    $scope.message = "Hello, " + person.firstName;
-    $scope.person = person;
+var MainController = function($scope, $http) {
+    $http.get("https://api.github.com/users/andrewniekamp")
+    .then( (res) => $scope.user = res.data)
 };
