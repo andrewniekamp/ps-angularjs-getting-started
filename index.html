@@ -12,40 +12,16 @@
 
 <body ng-controller="MainController">
     <p>{{username}}</p>
+
+    <!-- Expression, so we're using single-quote literal -->
+    <div ng-include="'userdetails.html'" ng-show="user"></div>
+
     <form name="searchUser" ng-submit="search(username)">
         <input type="search" required placeholder="Username to find" ng-model="username" />
         <input type="submit" value="Search" />
         <!-- Could also pass an argument into the ng-click easily -->
         <!-- <input type="submit" value="Search" ng-click="search(username)" /> -->
     </form>
-
-    <!-- Only shows if user is truthy -->
-    <div ng-show="user">
-        <p>{{user.name}}</p>
-        <img ng-src="{{user.avatar_url}}" />
-        <select ng-model="repoSortOrder">
-            <option value="+name">Name</option>
-            <option value="-stargazers_count">Stars</option>
-            <option value="+language">Language</option>
-        </select>
-    </div>
-    <!-- This is just for an example, it could just be ng-show="user" -->
-    <table ng-hide="!user">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Start</th>
-                <th>Language</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="repo in repos | orderBy:repoSortOrder">
-                <td>{{repo.name}}</td>
-                <td>{{repo.stargazers_count | number}}</td>
-                <td>{{repo.language}}</td>
-            </tr>
-        </tbody>
-    </table>
 </body>
 
 </html>
