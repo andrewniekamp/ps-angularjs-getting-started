@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="githubViewer">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,23 +9,28 @@
     <script src="./scripts.js"></script>
     <title>Document</title>
 </head>
+
 <body ng-controller="MainController">
     <p>{{username}}</p>
     <form name="searchUser" ng-submit="search(username)">
         <input type="search" required placeholder="Username to find" ng-model="username" />
-        <input type="submit" value="Search"/>
+        <input type="submit" value="Search" />
         <!-- Could also pass an argument into the ng-click easily -->
         <!-- <input type="submit" value="Search" ng-click="search(username)" /> -->
     </form>
 
-    <p>{{user.name}}</p>
-
-    <select ng-model="repoSortOrder">
-        <option value="+name">Name</option>
-        <option value="-stargazers_count">Stars</option>
-        <option value="+language">Language</option>
-    </select>
-    <table>
+    <!-- Only shows if user is truthy -->
+    <div ng-show="user">
+        <p>{{user.name}}</p>
+        <img ng-src="{{user.avatar_url}}" />
+        <select ng-model="repoSortOrder">
+            <option value="+name">Name</option>
+            <option value="-stargazers_count">Stars</option>
+            <option value="+language">Language</option>
+        </select>
+    </div>
+    <!-- This is just for an example, it could just be ng-show="user" -->
+    <table ng-hide="!user">
         <thead>
             <tr>
                 <th>Name</th>
@@ -40,7 +46,6 @@
             </tr>
         </tbody>
     </table>
-
-    <img ng-src="{{user.avatar_url}}" />
 </body>
+
 </html>
