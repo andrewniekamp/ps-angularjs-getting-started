@@ -23,14 +23,19 @@
             }
         }
 
+        let countdownInterval = null;
         const startCountdown = () => {
-            $interval(decrementCountdown, 1000, $scope.countdown);
+            countdownInterval = $interval(decrementCountdown, 1000, $scope.countdown);
         }
 
         $scope.search = (username) => {
             $log.info("Searching for " + username);
             $http.get("https://api.github.com/users/" + username)
             .then(onUserComplete, onError);
+            if (countdownInterval) {
+                $interval.cancel(countdownInterval);
+                $scope.countdown = null;
+            }
         }
 
         $scope.repoSortOrder = "-stargazers_count";
