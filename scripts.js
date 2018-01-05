@@ -3,7 +3,7 @@
     const app = angular.module("githubViewer", []);
 
     // Will ultimately not want to use global scope
-    const MainController = function($scope, $http) {
+    const MainController = function($scope, $http, $interval, $log) {
         const onUserComplete = (res) => {
             $scope.user = res.data;
             $http.get($scope.user.repos_url)
@@ -16,13 +16,27 @@
             $scope.error = "Could not fetch the data"; // Usually more specific
         }
 
+        const decrementCountdown = () => {
+            $scope.countdown -= 1;
+            if ($scope.countdown < 1) {
+                $scope.search($scope.username);
+            }
+        }
+
+        const startCountdown = () => {
+            $interval(decrementCountdown, 1000, $scope.countdown);
+        }
+
         $scope.search = (username) => {
-            $http.get("https://api.github.com/users/andrewniekamp")
+            $log.info("Searching for " + username);
+            $http.get("https://api.github.com/users/" + username)
             .then(onUserComplete, onError);
         }
 
         $scope.repoSortOrder = "-stargazers_count";
-        $scope.username = "Some User";
+        $scope.username = "Angular";
+        $scope.countdown = 5;
+        startCountdown();
     };
 
     app.controller("MainController", MainController); // Not typical
